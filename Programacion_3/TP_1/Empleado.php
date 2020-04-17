@@ -1,16 +1,15 @@
 <?php
 
-namespace TP_1;
+require_once ".\persona.php";
 
 
 class Empleado extends Persona
 {
+    protected  $_legajo;
+    protected  $_sueldo;
+    protected  $_turno;
 
-    protected $_legajo;
-    protected $_sueldo;
-    protected $_turno;
-
-    public function __construct($nombre,$apellido,$dni,$sexo,$legajo,$sueldo,$turno)
+    public function __construct( $nombre, $apellido, $dni, $sexo, $legajo, $sueldo,string $turno)
     {
         parent::__construct($nombre,$apellido,$dni,$sexo);
         
@@ -36,15 +35,12 @@ class Empleado extends Persona
 
     public function Hablar($idioma)
     {
-        $cadena=parent::Hablar($idioma);
-
-        return "El empleado habla " . $cadena;
+        return "El empleado habla " . $idioma;
     }
 
     public function ToString()
     {
-        return parent::ToString() . " - " . $this->_legajo . " - " . $this->_sueldo . " - " . $_turno;
-
+        return parent::ToString() . " - " . $this->GetLegajo() . " - " . $this->GetSueldo() . " - " . $this->GetTurno();
     }
 
 
@@ -52,3 +48,4 @@ class Empleado extends Persona
 
 
 
+?>

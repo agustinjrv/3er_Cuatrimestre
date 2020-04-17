@@ -1,17 +1,14 @@
 <?php 
-namespace TP_1;
 
 
 abstract class Persona
 {
-
-
     private $_apellido;
     private $_dni;
     private $_nombre;
     private $_sexo;
-
-    public function __construct($nombre,$apellido,$dni,$sexo)
+    
+    public function __construct( $nombre, $apellido, $dni, $sexo)
     {
         $this->_nombre=$nombre;
         $this->_apellido=$apellido;
@@ -39,14 +36,13 @@ abstract class Persona
         return $this->_sexo;
     }
 
-    public abstract function Hablar($idioma)
-    {
-        return $idioma;
-    }
+    public abstract function Hablar($idioma);
+    
 
     public function ToString()
     {
-        return $this->_apellido ." - " .$this->nombre ." - ". $this->_dni . " - " . $this->sexo;
+        return $this->GetApellido()." - " .$this->GetNombre() ." - ". $this->GetDni() . " - " . $this->GetSexo();
     }
 
 }
+?>

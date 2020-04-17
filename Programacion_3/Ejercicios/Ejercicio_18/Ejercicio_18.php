@@ -45,3 +45,5 @@ function EsInpar($numero)
 {
     return !(EsPar($numero));
 }
+
+
