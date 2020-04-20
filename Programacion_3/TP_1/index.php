@@ -19,11 +19,18 @@ $unaFabrica = new Fabrica("Una razon social");
 
 $unaFabrica->AgregarEmpleado($Empleado1);
 $unaFabrica->AgregarEmpleado($Empleado2);
+$unaFabrica->AgregarEmpleado($Empleado2);
+$unaFabrica->AgregarEmpleado($Empleado2);
 $unaFabrica->AgregarEmpleado($Empleado3);
 echo "<br/> <br/>";
 
 echo $unaFabrica->ToString();
 
+$unaFabrica->EliminarEmpleado($Empleado2);
+
+echo "<br/><br/>Elimino al empleado2<br/><br/>";
+
+echo $unaFabrica->ToString();
 
 
 

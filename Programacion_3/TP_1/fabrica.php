@@ -27,8 +27,10 @@ class Fabrica
             {
                 array_push($this->_empleados,$emp);
                 $retorno=true;
+                $this->EliminarEmpleadoRepetido();
             }
          }
+         
          
 
         return $retorno;
@@ -65,7 +67,7 @@ class Fabrica
 
     private function EliminarEmpleadoRepetido()
     {
-        $this->_empleados=array_unique($this->_empleados);
+        $this->_empleados=array_unique($this->_empleados,SORT_REGULAR);
     }
 
     public function ToString()
