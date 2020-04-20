@@ -13,7 +13,8 @@ abstract class Persona
         $this->_nombre=$nombre;
         $this->_apellido=$apellido;
         $this->_dni=$dni;
-        $this->_sexo=$sexo;
+        $this->_sexo=strtoupper($sexo);
+        
     }
 
     public function GetApellido()
