@@ -31,25 +31,6 @@ function ValidarCombo(cadena:string, cadenaIncorrecta:string): boolean
     return cadena!=cadenaIncorrecta;
 }
 
-function traerChecks() : void {
-    //obtengo todos los inputs
-    let checks : HTMLCollectionOf<HTMLInputElement> =  <HTMLCollectionOf<HTMLInputElement>> document.getElementsByTagName("input");
-    let seleccionados : string = "";
-    //recorro los inputs
-    for (let index = 0; index < checks.length; index++) {
-        let input = checks[index];
-        
-        if (input.type === "checkbox") { //verifico que sea un checkbox
-            if (input.checked === true) { //verifico que este seleccionado
-                seleccionados += input.name + "-";
-            }
-        }
-    }
-    //quito el ultimo guion (-)
-    seleccionados = seleccionados.substr(0, seleccionados.length - 1);
-    console.log(seleccionados);
-}
-
 function ObtenerTurnoSeleccionado():string
 {  
       //obtengo todos los inputs
@@ -59,7 +40,7 @@ function ObtenerTurnoSeleccionado():string
       for (let index = 0; index < checks.length; index++) {
           let input = checks[index];
           
-          if (input.type === "checkbox") { //verifico que sea un checkbox
+          if (input.type === "radio") { //verifico que sea un checkbox
               if (input.checked === true) { //verifico que este seleccionado
                   seleccionados += input.value + "-";
               }

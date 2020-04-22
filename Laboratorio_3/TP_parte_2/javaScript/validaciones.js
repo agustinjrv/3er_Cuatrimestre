@@ -17,23 +17,6 @@ function ValidarRangoNumerico(numero, minimo, maximo) {
 function ValidarCombo(cadena, cadenaIncorrecta) {
     return cadena != cadenaIncorrecta;
 }
-function traerChecks() {
-    //obtengo todos los inputs
-    var checks = document.getElementsByTagName("input");
-    var seleccionados = "";
-    //recorro los inputs
-    for (var index = 0; index < checks.length; index++) {
-        var input = checks[index];
-        if (input.type === "checkbox") { //verifico que sea un checkbox
-            if (input.checked === true) { //verifico que este seleccionado
-                seleccionados += input.name + "-";
-            }
-        }
-    }
-    //quito el ultimo guion (-)
-    seleccionados = seleccionados.substr(0, seleccionados.length - 1);
-    console.log(seleccionados);
-}
 function ObtenerTurnoSeleccionado() {
     //obtengo todos los inputs
     var checks = document.getElementsByTagName("radTurno");
@@ -41,7 +24,7 @@ function ObtenerTurnoSeleccionado() {
     //recorro los inputs
     for (var index = 0; index < checks.length; index++) {
         var input = checks[index];
-        if (input.type === "checkbox") { //verifico que sea un checkbox
+        if (input.type === "radio") { //verifico que sea un checkbox
             if (input.checked === true) { //verifico que este seleccionado
                 seleccionados += input.value + "-";
             }
