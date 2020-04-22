@@ -1,3 +1,4 @@
+"use strict";
 function ValidarCamposVacios(cadena) {
     var retorno = false;
     var tam = cadena.length;
@@ -14,17 +15,42 @@ function ValidarRangoNumerico(numero, minimo, maximo) {
     return retorno;
 }
 function ValidarCombo(cadena, cadenaIncorrecta) {
-    return cadena == cadenaIncorrecta;
+    return cadena != cadenaIncorrecta;
 }
-function ObtenerTurnoSeleccionado() {
-    var turnos = document.getElementsByTagName("radTurno");
-    var retorno = "";
-    for (var i = 0; i < 3; i++) {
-        if (turnos[i].checked) {
-            retorno = turnos[i].value;
+function traerChecks() {
+    //obtengo todos los inputs
+    var checks = document.getElementsByTagName("input");
+    var seleccionados = "";
+    //recorro los inputs
+    for (var index = 0; index < checks.length; index++) {
+        var input = checks[index];
+        if (input.type === "checkbox") { //verifico que sea un checkbox
+            if (input.checked === true) { //verifico que este seleccionado
+                seleccionados += input.name + "-";
+            }
         }
     }
-    return retorno;
+    //quito el ultimo guion (-)
+    seleccionados = seleccionados.substr(0, seleccionados.length - 1);
+    console.log(seleccionados);
+}
+function ObtenerTurnoSeleccionado() {
+    //obtengo todos los inputs
+    var checks = document.getElementsByTagName("radTurno");
+    var seleccionados = "";
+    //recorro los inputs
+    for (var index = 0; index < checks.length; index++) {
+        var input = checks[index];
+        if (input.type === "checkbox") { //verifico que sea un checkbox
+            if (input.checked === true) { //verifico que este seleccionado
+                seleccionados += input.value + "-";
+            }
+        }
+    }
+    //quito el ultimo guion (-)
+    seleccionados = seleccionados.substr(0, seleccionados.length - 1);
+    console.log(seleccionados);
+    return seleccionados;
 }
 function ObtenerSueldoMaximo(cadena) {
     var retorno = 0;
@@ -88,3 +114,4 @@ function AdministrarValidaciones() {
     alert(cadenaDeError);
     console.log(cadenaDeError);
 }
+//# sourceMappingURL=validaciones.js.map

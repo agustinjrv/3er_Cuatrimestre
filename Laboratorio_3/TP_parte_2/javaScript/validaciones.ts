@@ -28,22 +28,47 @@ function ValidarRangoNumerico(numero:number, minimo:number, maximo:number): bool
 
 function ValidarCombo(cadena:string, cadenaIncorrecta:string): boolean
 {
-    return cadena==cadenaIncorrecta;
+    return cadena!=cadenaIncorrecta;
 }
 
-function ObtenerTurnoSeleccionado(): string
-{  
-    let turnos= <HTMLCollectionOf<HTMLInputElement>> document.getElementsByTagName("radTurno")
-    let retorno="";           
-    for(let i=0;i<3;i++)
-    {
-        if(turnos[i].checked)
-        {
-            retorno=turnos[i].value;
+function traerChecks() : void {
+    //obtengo todos los inputs
+    let checks : HTMLCollectionOf<HTMLInputElement> =  <HTMLCollectionOf<HTMLInputElement>> document.getElementsByTagName("input");
+    let seleccionados : string = "";
+    //recorro los inputs
+    for (let index = 0; index < checks.length; index++) {
+        let input = checks[index];
+        
+        if (input.type === "checkbox") { //verifico que sea un checkbox
+            if (input.checked === true) { //verifico que este seleccionado
+                seleccionados += input.name + "-";
+            }
         }
     }
+    //quito el ultimo guion (-)
+    seleccionados = seleccionados.substr(0, seleccionados.length - 1);
+    console.log(seleccionados);
+}
 
-    return retorno;
+function ObtenerTurnoSeleccionado():string
+{  
+      //obtengo todos los inputs
+      let checks : HTMLCollectionOf<HTMLInputElement> =  <HTMLCollectionOf<HTMLInputElement>> document.getElementsByTagName("radTurno");
+      let seleccionados : string = "";
+      //recorro los inputs
+      for (let index = 0; index < checks.length; index++) {
+          let input = checks[index];
+          
+          if (input.type === "checkbox") { //verifico que sea un checkbox
+              if (input.checked === true) { //verifico que este seleccionado
+                  seleccionados += input.value + "-";
+              }
+          }
+      }
+      //quito el ultimo guion (-)
+      seleccionados = seleccionados.substr(0, seleccionados.length - 1);
+      console.log(seleccionados);
+      return seleccionados;
 }
 
 function ObtenerSueldoMaximo(cadena:string): number
@@ -65,6 +90,7 @@ function ObtenerSueldoMaximo(cadena:string): number
 
     return retorno;
 }
+
 
 function AdministrarValidaciones()
 {
