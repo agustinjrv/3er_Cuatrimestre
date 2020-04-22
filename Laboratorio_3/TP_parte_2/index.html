@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> HTML 5 – Formulario Alta Empleado</title>
+    <script src=".\javaScript\funciones.js"></script>
 </head>
 <body>
+    
     <h2>Alta de Empleados</h2>
 
     <form action="">
@@ -46,7 +48,7 @@
                 <td style="text-align:left;padding-left:15px">
                     <select 
                          name="cboSexo" id="cboSexo"> 
-                         <option value="---" disabled selected="true" >Seleccione</option>
+                         <option value="---" selected="true" >Seleccione</option>
                          <option value="M">Masculino</option>
                          <option value="F">Femenino</option>
                     </select>
@@ -79,21 +81,18 @@
             </tr>
             <tr>
                 <td></td>
-                <!--VERIFICAR  QUE VA EN ID DE RADIO-->
-                 <!--VERIFICAR  QUE VA EN ID DE RADIO-->
-                  <!--VERIFICAR QUE VA EN ID DE RADIO-->
-                   <!--VERIFICAR  QUE VA EN ID DE RADIO-->
+            
 
-                <td><input type="radio" name="radTurno" id="rdoTurno" checked>Mañana</td>
+                <td><input type="radio" name="radTurno" id="rdoTurnoM" checked value="Mañana">Mañana</td>
             </tr>
 
             <tr>
                 <td></td>
-                <td><input type="radio" name="radTurno" id="rdoTurno">Tarde</td>
+                <td><input type="radio" name="radTurno" id="rdoTurnoT" value="Tarde">Tarde</td>
             </tr>
             <tr>
                 <td ></td>
-                <td><input type="radio" name="radTurno" id="rdoTurno">Noche</td>
+                <td><input type="radio" name="radTurno" id="rdoTurnoN" value="Noche">Noche</td>
             </tr>
 
             <tr>
@@ -110,7 +109,7 @@
             <tr>
                 <td></td>
                 <td align="right">
-                    <input type="button" value="Enviar">
+                    <input type="button" value="Enviar" onclick="Administrarvalidaciones()">
                 </td>
             </tr>
             
@@ -118,7 +117,7 @@
      
 
 
-
+           
 
 
 
