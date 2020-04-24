@@ -1,4 +1,3 @@
-"use strict";
 function ValidarCamposVacios(cadena) {
     var retorno = false;
     var tam = cadena.length;
@@ -19,11 +18,11 @@ function ValidarCombo(cadena, cadenaIncorrecta) {
 }
 function ObtenerTurnoSeleccionado() {
     //obtengo todos los inputs
-    var checks = document.getElementsByTagName("radTurno");
+    var radios = document.getElementsByTagName("input");
     var seleccionados = "";
     //recorro los inputs
-    for (var index = 0; index < checks.length; index++) {
-        var input = checks[index];
+    for (var index = 0; index < radios.length; index++) {
+        var input = radios[index];
         if (input.type === "radio") { //verifico que sea un checkbox
             if (input.checked === true) { //verifico que este seleccionado
                 seleccionados += input.value + "-";
@@ -58,12 +57,12 @@ function AdministrarValidaciones() {
     if (ValidarRangoNumerico(dni, dniMin, dniMax)) {
     }
     else {
-        cadenaDeError += "\nError el DNI no valido,debe ser un numero entre: " + dniMin + " y " + dniMax;
+        cadenaDeError += "Error,el DNI no valido,debe ser un numero entre: " + dniMin + " y " + dniMax;
     }
     if (ValidarCamposVacios(document.getElementById("txtApellido").value)) {
     }
     else {
-        cadenaDeError = "Error,el campo Apellido no puede estar vacio";
+        cadenaDeError += "\nError,el campo Apellido no puede estar vacio";
     }
     if (ValidarCamposVacios(document.getElementById("txtNombre").value)) {
     }
@@ -94,7 +93,12 @@ function AdministrarValidaciones() {
     else {
         cadenaDeError += "\nError,para el turno " + turno + " el sueldo debe ser un numero entre: " + sueldoMin + " y " + sueldoMax;
     }
-    alert(cadenaDeError);
-    console.log(cadenaDeError);
+    if (ValidarCamposVacios(cadenaDeError)) {
+        alert(cadenaDeError);
+        console.log(cadenaDeError);
+    }
+    else {
+        alert("Datos enviados correctamente");
+        console.log("Datos enviados correctamente");
+    }
 }
-//# sourceMappingURL=validaciones.js.map
