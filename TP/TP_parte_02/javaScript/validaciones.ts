@@ -153,10 +153,4 @@ function AdministrarValidaciones()
         alert(cadenaDeError);
         console.log(cadenaDeError);
     }
-    else
-    {
-        alert("Datos enviados correctamente");
-        console.log("Datos enviados correctamente");
-    }
-    
 }
