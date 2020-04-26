@@ -10,7 +10,7 @@
     
     <h2>Alta de Empleados</h2>
 
-    <form action="../TP_parte_01/administracion.php" method="POST" id="formIngreso">
+    <form action="../PHP/administracion.php" method="POST" id="formIngreso">
 
         <table align="center">
 
@@ -30,7 +30,7 @@
             <tr>
                 <td >Apellido:</td>
                 <td style="text-align:left;padding-left:15px">
-                <input type="text" name="txtApellido" id="txtApellido">
+                <input type="text" name="txtApellido" id="txtApellido" minlength="1">
                 </td>
             </tr>
 
@@ -38,7 +38,7 @@
             <tr>
                 <td>Nombre:</td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="text" name="txtNombre" id="txtNombre">
+                    <input type="text" name="txtNombre" id="txtNombre" minlength="1">
                 </td>
             </tr>
 
@@ -111,6 +111,8 @@
             </tr>
 
         </table>
+
+        
     </form>
 </body>
 </html

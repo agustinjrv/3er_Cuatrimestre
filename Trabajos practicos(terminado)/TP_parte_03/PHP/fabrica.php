@@ -24,7 +24,7 @@ class Fabrica implements IArchivo
 
          if(is_a($emp,"Empleado")) 
          {
-            if(count($this->_empleados)<=$this->_cantidadMaxima)
+            if(count($this->_empleados)<$this->_cantidadMaxima)
             {
                 array_push($this->_empleados,$emp);
                 $retorno=true;
@@ -95,7 +95,7 @@ class Fabrica implements IArchivo
         {
             foreach($this->_empleados as $unEmpleado)
             {
-                fwrite($archivo,$unEmpleado->ToString());
+                fwrite($archivo,$unEmpleado->ToString()."\r\n");
             }
             fclose($archivo);
         }

@@ -1,7 +1,0 @@
-rivola - agustin - 42432112 - M - 111 - 10000 - Mañana
-Esteban - Yanten - 43434343 - M - 222 - 12000 - Tarde
-Siles - Jazmin - 41435678 - F - 333 - 13000 - Noche
-Aguado - Santiago - 42333356 - M - 324 - 18000 - Tarde
-Guerrero - Constanza - 45550012 - F - 432 - 20000 - Noche
-Yanten - Elizabeth - 45467689 - F - 543 - 13000 - Tarde
-Alabar - Ornella - 42467666 - F - 300 - 18000 - Noche

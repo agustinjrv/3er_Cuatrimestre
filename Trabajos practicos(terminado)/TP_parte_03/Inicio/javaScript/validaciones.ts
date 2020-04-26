@@ -73,7 +73,7 @@ function ObtenerSueldoMaximo(cadena:string): number
 }
 
 
-function AdministrarValidaciones()
+function AdministrarValidaciones():void
 {
     let cadenaDeError="";
     let dni=parseInt((<HTMLInputElement>document.getElementById("txtDni")).value);
