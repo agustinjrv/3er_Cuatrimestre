@@ -10,11 +10,11 @@ class Fabrica implements IArchivo
     private $_razonSocial;
    
 
-    public function __construct($razonSosial)
+    public function __construct($razonSosial,$_cantidadMaxima=5)
     {
         $this->_razonSocial=$razonSosial;
         $this->_empleados=array();
-        $this->_cantidadMaxima=5;
+        $this->_cantidadMaxima=$_cantidadMaxima;
        
     }
 
@@ -95,7 +95,7 @@ class Fabrica implements IArchivo
         {
             foreach($this->_empleados as $unEmpleado)
             {
-                fwrite($archivo,$unEmpleado->ToString()."\r\n");
+                fwrite($archivo,$unEmpleado->ToString());
             }
             fclose($archivo);
         }
@@ -115,12 +115,13 @@ class Fabrica implements IArchivo
                 $cadena=fgets($archivo);
                 $datos=explode(' - ',$cadena);
 
-                if($datos[0]!='')
+                if(count($datos)>1)
                 {
                     $nuevoEmpleado=new Empleado($datos[1],$datos[0],$datos[2],$datos[3],$datos[4],$datos[5],$datos[6]);
                     $this->AgregarEmpleado($nuevoEmpleado);
                 }
             }
+            fclose($archivo);
         }
     }
 
