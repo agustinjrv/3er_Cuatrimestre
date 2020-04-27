@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 5 – Formulario Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form action=""></form>
+        <table align="center">
+
+            <tr>
+                <td colspan="2"><h4>Ingreso de credenciales</h4></td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr></td>
+            </tr>
+            <tr>
+                <td>DNI:</td>
+                <td style="text-align:left;padding-left:15px">
+                <input type="number" name="txtDni" id="txtDni" min="1000000" max="55000000">
+                <span style="display: none;" id="spanDni">*</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <td >Apellido:</td>
+                <td style="text-align:left;padding-left:15px">
+                <input type="text" name="txtApellido" id="txtApellido">
+                <span style="display: none;" id="spanApellido">*</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td align="right">
+                    <input type="reset" value="Limpiar">
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td align="right">
+                    <input type="submit" value="Enviar"  onclick="AdministrarValidacionesLogin()">
+                </td>
+            </tr>
+
+
+        </table>
+
+    </form>
+</body>
+</html>
