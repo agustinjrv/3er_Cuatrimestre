@@ -1,86 +1,52 @@
 
 function AdministrarValidaciones():void
 {
-    let cadenaDeError="";
     let dni=parseInt((<HTMLInputElement>document.getElementById("txtDni")).value);
     let dniMin =parseInt((<HTMLInputElement>document.getElementById("txtDni")).min);
     let dniMax =parseInt((<HTMLInputElement>document.getElementById("txtDni")).max);
 
-    if(ValidarRangoNumerico(dni,dniMin,dniMax))
-    {
-
-    }
-    else
-    {
-        cadenaDeError+="Error,el DNI no valido,debe ser un numero entre: " + dniMin + " y " + dniMax;
-    }
-    
-
-    if(ValidarCamposVacios((<HTMLInputElement>document.getElementById("txtApellido")).value))
-    {
-    }
-    else
-    {
-        cadenaDeError+="\nError,el campo Apellido no puede estar vacio";
-    }
-    
-    if(ValidarCamposVacios((<HTMLInputElement>document.getElementById("txtNombre")).value))
-    {
-     
-    }
-    else
-    {
-        cadenaDeError+="\nError,el campo Nombre no puede estar vacio";
-    }
+    AdministrarSpanError("spanDni",ValidarRangoNumerico(dni,dniMin,dniMax));    
+    AdministrarSpanError("spanApellido",(ValidarCamposVacios((<HTMLInputElement>document.getElementById("txtApellido")).value)));
+    AdministrarSpanError("spanNombre",ValidarCamposVacios((<HTMLInputElement>document.getElementById("txtNombre")).value));
 
     let valorCorrecto=(<HTMLInputElement>document.getElementById("cboSexo")).value;
-    let valorIncorrecto="---";
-    if(ValidarCombo(valorCorrecto,valorIncorrecto))
-    {
-
-    }
-    else
-    {
-        cadenaDeError+="\nError,no a seleccionado el sexo del empleado";
-    }
+    AdministrarSpanError("spanSexo",ValidarCombo(valorCorrecto,"---"));
     
-    
-    
-
     let legajo=parseInt((<HTMLInputElement>document.getElementById("txt_legajo")).value);
     let legajoMin=parseInt((<HTMLInputElement>document.getElementById("txt_legajo")).min);
     let legajoMax=parseInt((<HTMLInputElement>document.getElementById("txt_legajo")).max);
-
-    if(ValidarRangoNumerico(legajo,legajoMin,legajoMax))
-    {
-
-    }
-    else
-    {
-        cadenaDeError+="\nError el Legajo no es valido,debe ser un numero entre: " + legajoMin + " y " + legajoMax;
-    }
-
+    AdministrarSpanError("spanLegajo",ValidarRangoNumerico(legajo,legajoMin,legajoMax));
+    
     let sueldo=parseInt((<HTMLInputElement>document.getElementById("txt_sueldo")).value);
     let sueldoMin=parseInt((<HTMLInputElement>document.getElementById("txt_sueldo")).min);
-    let turno=ObtenerTurnoSeleccionado()
+    let turno=ObtenerTurnoSeleccionado();
     let sueldoMax=ObtenerSueldoMaximo(turno);
-
-    if(ValidarRangoNumerico(sueldo,sueldoMin,sueldoMax))
-    {
-
-    }
-    else 
-    {
-        cadenaDeError+="\nError,para el turno " + turno +" el sueldo debe ser un numero entre: " + sueldoMin + " y " + sueldoMax;
-    }
-
-    if(ValidarCamposVacios(cadenaDeError))
-    {
-        alert(cadenaDeError);
-        console.log(cadenaDeError);
-    }
+    AdministrarSpanError("spanSueldo",ValidarRangoNumerico(sueldo,sueldoMin,sueldoMax));
 }
 
+function VerificarValidacionesLogin(): boolean
+{
+    let retorno:boolean=false;
+    let cadena:string=(<HTMLInputElement>document.getElementById("txtApellido")).value;
+    AdministrarSpanError("spanApellido",ValidarCamposVacios(cadena));
+
+    let numero=parseInt((<HTMLInputElement>document.getElementById("txtDni")).value);
+    let min=parseInt((<HTMLInputElement>document.getElementById("txtDni")).min);
+    let max=parseInt((<HTMLInputElement>document.getElementById("txtDni")).max);
+
+    AdministrarSpanError("spanDni",ValidarRangoNumerico(numero,min,max));
+
+
+    if((<HTMLInputElement>document.getElementById("spanDni")).style.display=="none")
+    {
+        if((<HTMLInputElement>document.getElementById("spanApellido")).style.display=="none")
+        {
+            retorno=true;
+        }
+    }
+
+    return retorno;
+}
 
 function ValidarCamposVacios(cadena:string):boolean
 {
@@ -114,20 +80,19 @@ function ValidarCombo(cadena:string, cadenaIncorrecta:string): boolean
 
 function ObtenerTurnoSeleccionado():string
 {  
-      //obtengo todos los inputs
       let radios : HTMLCollectionOf<HTMLInputElement> =  <HTMLCollectionOf<HTMLInputElement>> document.getElementsByTagName("input");
       let seleccionados : string = "";
-      //recorro los inputs
+   
       for (let index = 0; index < radios.length; index++) {
           let input = radios[index];
           
-          if (input.type === "radio") { //verifico que sea un checkbox
-              if (input.checked === true) { //verifico que este seleccionado
+          if (input.type === "radio") { 
+              if (input.checked === true) { 
                   seleccionados += input.value + "-";
               }
           }
       }
-      //quito el ultimo guion (-)
+      
       seleccionados = seleccionados.substr(0, seleccionados.length - 1);
       console.log(seleccionados);
       return seleccionados;
@@ -164,18 +129,3 @@ function AdministrarSpanError(id:string, flag:boolean): void
         (<HTMLInputElement>document.getElementById(id)).style.display="none";
     }
 }
-
-function VerificarValidacionesLogin(): boolean
-{
-    let retorno:boolean=false;
-    if((<HTMLInputElement>document.getElementById("spanDni")).style.display=="none")
-    {
-        if((<HTMLInputElement>document.getElementById("spanApellido")).style.display=="none")
-        {
-            retorno=true;
-        }
-    }//no incluimos el verificar campos vacios y otros;
-
-    return retorno;
-}
-

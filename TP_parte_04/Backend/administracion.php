@@ -18,7 +18,7 @@ if($unaFabrica->AgregarEmpleado($nuevoEmpleado))
 else
 {
     echo "No se a podido agregar al empleado,fabrica llena";
-    echo '<a href="../Inicio/index.html"><br/>Volver</a>';
+    echo '<a href="../Frontend/index.html"><br/>Volver</a>';
 }
 
 ?>

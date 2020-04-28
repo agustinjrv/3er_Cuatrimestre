@@ -10,7 +10,7 @@
     
     <h2>Alta de Empleados</h2>
 
-    <form action="../PHP/administracion.php" method="POST" id="formIngreso">
+    <form action="../Backend/administracion.php" method="POST" id="formIngreso">
 
         <table align="center">
 
@@ -24,6 +24,7 @@
                 <td>DNI:</td>
                 <td style="text-align:left;padding-left:15px">
                 <input type="number" name="txtDni" id="txtDni" min="1000000" max="55000000">
+                <span style="display: none;" id="spanDni">*</span>
                 </td>
             </tr>
             
@@ -31,6 +32,7 @@
                 <td >Apellido:</td>
                 <td style="text-align:left;padding-left:15px">
                 <input type="text" name="txtApellido" id="txtApellido" minlength="1">
+                <span style="display: none;" id="spanApellido">*</span>
                 </td>
             </tr>
 
@@ -38,7 +40,8 @@
             <tr>
                 <td>Nombre:</td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="text" name="txtNombre" id="txtNombre" minlength="1">
+                <input type="text" name="txtNombre" id="txtNombre" minlength="1">
+                <span style="display: none;" id="spanNombre">*</span>
                 </td>
             </tr>
 
@@ -52,6 +55,7 @@
                          <option value="M">Masculino</option>
                          <option value="F">Femenino</option>
                     </select>
+                    <span style="display: none;" id="spanSexo">*</span>
                 </td>
             </tr>
 
@@ -66,6 +70,7 @@
                 <td>Legajo:</td>
                 <td style="text-align:left;padding-left:15px">
                     <input type="number" name="txtLegajo" id="txt_legajo" size="5" min="100" max="550">
+                    <span style="display: none;" id="spanLegajo">*</span>
                 </td>
             </tr>
 
@@ -73,6 +78,7 @@
                 <td>Sueldo:</td>
                 <td style="text-align:left;padding-left:15px">
                     <input type="number" name="txtSueldo" id="txt_sueldo" min="8000" step="500">
+                    <span style="display: none;" id="spanSueldo">*</span>
                 </td>
             </tr>
 
