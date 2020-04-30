@@ -23,14 +23,14 @@
             <tr>
                 <td>DNI:</td>
                 <td style="text-align:left;padding-left:15px">
-                <input type="number" name="txtDni" id="txtDni" min="1000000" max="55000000">
+                <input type="number" name="txtDni" id="txtDni" min="1000000" max="55000000" required
                 </td>
             </tr>
             
             <tr>
                 <td >Apellido:</td>
                 <td style="text-align:left;padding-left:15px">
-                <input type="text" name="txtApellido" id="txtApellido" minlength="1">
+                <input type="text" name="txtApellido" id="txtApellido" minlength="1" required>
                 </td>
             </tr>
 
@@ -38,7 +38,7 @@
             <tr>
                 <td>Nombre:</td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="text" name="txtNombre" id="txtNombre" minlength="1">
+                    <input type="text" name="txtNombre" id="txtNombre" minlength="1" required>
                 </td>
             </tr>
 
@@ -46,7 +46,7 @@
             <tr>
                 <td>Sexo:</td> 
                 <td style="text-align:left;padding-left:15px">
-                    <select 
+                    <select required
                          name="cboSexo" id="cboSexo"> 
                          <option value="---" selected="true" >Seleccione</option>
                          <option value="M">Masculino</option>
@@ -65,14 +65,14 @@
             <tr>
                 <td>Legajo:</td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="number" name="txtLegajo" id="txt_legajo" size="5" min="100" max="550">
+                    <input type="number" name="txtLegajo" id="txt_legajo" size="5" min="100" max="550" required>
                 </td>
             </tr>
 
             <tr>
                 <td>Sueldo:</td>
                 <td style="text-align:left;padding-left:15px">
-                    <input type="number" name="txtSueldo" id="txt_sueldo" min="8000" step="500">
+                    <input type="number" name="txtSueldo" id="txt_sueldo" min="8000" step="500" required>
                 </td>
             </tr>
 
