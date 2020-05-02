@@ -1,4 +1,5 @@
 <?php
+require "./validarSesion.php";
 require_once ".\\empleado.php";
 require_once ".\\fabrica.php";
 
@@ -34,7 +35,7 @@ echo $unaFabrica->ToString();
 
 
 
-
+echo '<br/><br/><a href="./cerrarSesion.php">Cerrar sesion</a>';
 
 
 

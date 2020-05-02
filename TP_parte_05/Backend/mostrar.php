@@ -1,5 +1,8 @@
 <?php
-require "./Empleado.php";
+require "./validarSesion.php";
+require "./empleado.php";
+
+
 
 $path="./archivos/empleados.txt";
 $archivo=fopen($path,"r");
@@ -23,9 +26,6 @@ if($archivo)
        
     }    
 }
-
-
-
 
 echo '
     <!DOCTYPE html>
@@ -52,7 +52,7 @@ echo '
     {
         echo "<tr>".
                 "<td>".
-                     $unEmpleado->ToString().
+                     $unEmpleado->ToString() .
                "</td>".
                 
               "<td>".
@@ -60,7 +60,7 @@ echo '
               "</td>".
              "</tr>";
     }
-   echo "
+   echo '
 
    <tr>
         <td><hr></td>    
@@ -68,6 +68,10 @@ echo '
 
     </table>
 
+
+     <a href="./cerrarSesion.php">Cerrar sesion</a>
+
     </body>
-    </html>";
+    </html>';
+
     

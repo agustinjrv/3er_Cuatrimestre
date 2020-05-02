@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form action=""></form>
+    <form action="../Backend/verificarUsuario.php" method="post" id="formLogin">
         <table align="center">
 
             <tr>
@@ -20,7 +20,7 @@
             <tr>
                 <td>DNI:</td>
                 <td style="text-align:left;padding-left:15px">
-                <input type="number" name="txtDni" id="txtDni" min="1000000" max="55000000">
+                <input type="number" name="txtDni" id="txtDni" min="1000000" max="55000000" required>
                 <span style="display: none;" id="spanDni">*</span>
                 </td>
             </tr>
@@ -28,7 +28,7 @@
             <tr>
                 <td >Apellido:</td>
                 <td style="text-align:left;padding-left:15px">
-                <input type="text" name="txtApellido" id="txtApellido">
+                <input type="text" name="txtApellido" id="txtApellido" required>
                 <span style="display: none;" id="spanApellido">*</span>
                 </td>
             </tr>

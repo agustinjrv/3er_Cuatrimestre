@@ -22,6 +22,8 @@ function AdministrarValidaciones():void
     let turno=ObtenerTurnoSeleccionado();
     let sueldoMax=ObtenerSueldoMaximo(turno);
     AdministrarSpanError("spanSueldo",ValidarRangoNumerico(sueldo,sueldoMin,sueldoMax));
+
+    AdministrarSpanError("spanFile",ValidarCamposVacios((<HTMLInputElement>document.getElementById("inputFile")).value));
 }
 
 function VerificarValidacionesLogin(): boolean
