@@ -82,10 +82,16 @@ function ObtenerSueldoMaximo(cadena) {
     return retorno;
 }
 function AdministrarSpanError(id, flag) {
-    if (flag) {
+    if (!flag) {
         document.getElementById(id).style.display = "block";
     }
     else {
         document.getElementById(id).style.display = "none";
     }
+}
+function AdministrarModificar(dni) {
+
+    document.getElementById("hiddenDni").value = dni;
+    var form = document.getElementById('formDni');
+    form.submit();
 }

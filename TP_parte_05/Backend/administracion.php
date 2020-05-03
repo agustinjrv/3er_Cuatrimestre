@@ -3,8 +3,6 @@ require "./empleado.php";
 require_once "./fabrica.php";
 
 $path="./archivos/empleados.txt";
-var_dump($_FILES);
-var_dump($_POST);
 $destino="./fotos/".$_FILES["Archivo"]["name"];
 $tipoArchivo=pathinfo($destino,PATHINFO_EXTENSION);
 

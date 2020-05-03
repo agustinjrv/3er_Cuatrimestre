@@ -122,7 +122,7 @@ function ObtenerSueldoMaximo(cadena:string): number
 
 function AdministrarSpanError(id:string, flag:boolean): void
 {
-    if(flag)
+    if(!flag)
     {
         (<HTMLInputElement>document.getElementById(id)).style.display="block";
     }
@@ -130,4 +130,11 @@ function AdministrarSpanError(id:string, flag:boolean): void
     {
         (<HTMLInputElement>document.getElementById(id)).style.display="none";
     }
+}
+
+function AdministrarModificar(dni:string)
+{
+    (<HTMLInputElement> document.getElementById("hiddenDni")).value=dni;
+    let form:HTMLFormElement = <HTMLFormElement>document.getElementById('formMostrar');
+    form.submit();
 }

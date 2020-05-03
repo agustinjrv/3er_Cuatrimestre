@@ -1,2 +1,6 @@
-Rivola - Agustin - 42432112 - M - 300 - 18000 - Mañana - 
-Aguado - Santiago - 45653466 - M - 302 - 17000 - Tarde - ./fotos/45653466-Aguado.png
+Rivola - Agustin - 42432112 - M - 300 - 18000 - Mañana - ./fotos/42432112-Rivola.jpeg
+
+Siles - Jazmin - 41467821 - M - 306 - 19000 - Noche - ./fotos/41467821-Siles.png
+
+Martinez - Zaira - 43214641 - F - 333 - 13000 - Tarde - ./fotos/43214641-Martinez.png
+

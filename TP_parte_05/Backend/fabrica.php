@@ -18,6 +18,11 @@ class Fabrica implements IArchivo
        
     }
 
+    public function GetEmpleados()
+    {
+        return $this->_empleados;
+    }
+
     public function AgregarEmpleado(Empleado $emp):bool
     {
          $retorno=false;
@@ -57,6 +62,7 @@ class Fabrica implements IArchivo
         {
             if($i==$emp)
             {
+                unlink(trim($i->GetPathFoto()));
                 unset($this->_empleados[$key]);
                 $retorno=true;
                 break;
@@ -118,6 +124,7 @@ class Fabrica implements IArchivo
                 if(count($datos)>1)
                 {
                     $nuevoEmpleado=new Empleado($datos[1],$datos[0],$datos[2],$datos[3],$datos[4],$datos[5],$datos[6]);
+                    $nuevoEmpleado->SetPathFoto($datos[7]);
                     $this->AgregarEmpleado($nuevoEmpleado);
                 }
             }

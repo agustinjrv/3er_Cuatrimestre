@@ -1,3 +1,27 @@
+<?php
+require "..\Backend\\fabrica.php";
+
+var_dump($_POST);
+$unaFabrica = new Fabrica("Alfajores",7);
+$unaFabrica->TraerDeArchivo("..\Backend\archivos\\empleados.txt");
+$unEmpleado;
+
+foreach ($unaFabrica->GetEmpleados() as $e)
+{
+    if($e->GetDni()==$_POST["dni"])
+    {
+        $unEmpleado=$e;
+        break;
+    }
+}
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,7 +141,7 @@
                     <input type="reset" value="Limpiar">
                 </td>
             </tr>
-
+            
             <tr>
                 <td></td>
                 <td align="right">

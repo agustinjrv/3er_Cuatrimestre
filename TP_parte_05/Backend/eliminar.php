@@ -1,7 +1,6 @@
 <?php
 require "./empleado.php";
 require "./fabrica.php";
-
 $path="./archivos/empleados.txt";
 $archivo=fopen($path,"r");
 $cadena="";
@@ -29,6 +28,7 @@ if($archivo)
     if($encontro)
     {
         $unEmpleado=new Empleado($datos[1],$datos[0],$datos[2],$datos[3],$datos[4],$datos[5],$datos[6]);
+        $unEmpleado->SetPathFoto($datos[7]);
         $unaFabrica=new Fabrica("Alfajores",7);
         $unaFabrica->TraerDeArchivo($path);
         if($unaFabrica->EliminarEmpleado($unEmpleado))
