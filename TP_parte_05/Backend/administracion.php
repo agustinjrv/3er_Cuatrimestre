@@ -3,6 +3,23 @@ require "./empleado.php";
 require_once "./fabrica.php";
 
 $path="./archivos/empleados.txt";
+$unaFabrica=new Fabrica("Alfajores",7);
+$unaFabrica->TraerDeArchivo($path);
+echo "antes de if";
+
+if(strlen($_POST["hdnModificar"])>3)
+{
+    foreach($unaFabrica->GetEmpleados() as $e)
+    {
+        if(strcmp($e->GetDni(),$_POST["hdnModificar"])==0)
+        {
+           $unaFabrica->EliminarEmpleado($e);
+            break;
+        }
+    }
+}
+
+
 $destino="./fotos/".$_FILES["Archivo"]["name"];
 $tipoArchivo=pathinfo($destino,PATHINFO_EXTENSION);
 
@@ -22,9 +39,9 @@ if(getimagesize($_FILES["Archivo"]["tmp_name"]))
 }
 
 
-$unaFabrica=new Fabrica("Alfajores",7);
 
-$unaFabrica->TraerDeArchivo($path);
+
+
 if($unaFabrica->AgregarEmpleado($nuevoEmpleado))
 {
     $unaFabrica->GuardarEnArchivo($path);

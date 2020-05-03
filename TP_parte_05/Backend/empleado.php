@@ -1,5 +1,5 @@
 <?php
-require_once ".\persona.php";
+require_once "persona.php";
 
 class Empleado extends Persona
 {
