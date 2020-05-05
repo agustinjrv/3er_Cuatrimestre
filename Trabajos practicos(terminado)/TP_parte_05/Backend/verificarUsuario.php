@@ -33,9 +33,9 @@ if($archivo)
 
 if($encontro)
 {
-    header("LOCATION: ./Mostrar.php");
+    header("LOCATION: ./mostrar.php");
 }
 else
 {
-    echo "Error,Empleado no encontrado" . "<br/>". "<br/>".'<a href="..\Frontend\login.html">Ir a login</a>';
+    echo "Error,Empleado no encontrado" . "<br/>". "<br/>".'<a href="../Frontend/login.html">Ir a login</a>';
 }

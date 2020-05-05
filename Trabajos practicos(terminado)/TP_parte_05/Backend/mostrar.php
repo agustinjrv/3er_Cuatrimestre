@@ -16,7 +16,7 @@ echo '
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>HTML 5 – Listado de Empleados</title>
-        <script src="..\Frontend\javaScript\funciones.js"></script>        
+        <script src="../Frontend/javaScript/funciones.js"></script>        
     </head>
     <body>
     <h2>Listado de Empleados</h2>
@@ -59,7 +59,7 @@ echo '
 
      <a href="./cerrarSesion.php">Cerrar sesion</a>
 
-     <form id="formDni" method="post" action="../Frontend/index.php">
+     <form id="formDni" method="post" action="../index.php">
             <input type="hidden" name="dni" id="hiddenDni">
         </form>
 

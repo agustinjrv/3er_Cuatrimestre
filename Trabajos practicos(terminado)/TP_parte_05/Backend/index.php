@@ -1,7 +1,7 @@
 <?php
 require "./validarSesion.php";
-require_once ".\\empleado.php";
-require_once ".\\fabrica.php";
+require_once "./empleado.php";
+require_once "./fabrica.php";
 
 
 

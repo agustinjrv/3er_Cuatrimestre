@@ -1,6 +1,6 @@
 <?php
-require_once "../Backend/fabrica.php";
-require_once "../Backend/empleado.php";
+require_once "./Backend/fabrica.php";
+require_once "./Backend/empleado.php";
 $titulo="HTML 5 – Formulario Alta Empleado";
 $apellido=null;
 $nombre=null;
@@ -18,11 +18,10 @@ $checkedMañana="checked";
 $checkedTarde="";
 $checkedNoche="";
 
-
 if($_POST)
 {
     $unaFabrica = new Fabrica("Alfajores",7);
-    $unaFabrica->TraerDeArchivo("..\Backend\archivos\\empleados.txt");
+    $unaFabrica->TraerDeArchivo("./Backend/archivos/empleados.txt");
     $unEmpleado;
 
     foreach ($unaFabrica->GetEmpleados() as $e)
@@ -82,13 +81,13 @@ echo '
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>'. $titulo .'</title>
-    <script src="javaScript/funciones.js"></script>
+    <script src="./Frontend/javaScript/funciones.js"></script>
 </head>
 <body>
     
     <h2>'. $h2 .'</h2>
 
-    <form action="../Backend/administracion.php" method="POST" id="formIngreso" enctype="multipart/form-data">
+    <form action="./Backend/administracion.php" method="POST" id="formIngreso" enctype="multipart/form-data">
 
         <table align="center">
 
