@@ -109,27 +109,31 @@ class Fabrica implements IArchivo
 
     function TraerDeArchivo(string $nombreArchivo):void 
     {
-        $archivo=fopen($nombreArchivo,"r");
-        $cadena="";
-        $datos=array();
-        $nuevoEmpleado;
-
-        if($archivo)
+        if(is_file($nombreArchivo))
         {
-            while(!feof($archivo))
-            {
-                $cadena=fgets($archivo);
-                $datos=explode(' - ',$cadena);
+            $archivo=fopen($nombreArchivo,"r");
+            $cadena="";
+            $datos=array();
+            $nuevoEmpleado;
 
-                if(count($datos)>1)
+            if($archivo)
+            {
+                while(!feof($archivo))
                 {
-                    $nuevoEmpleado=new Empleado($datos[1],$datos[0],$datos[2],$datos[3],$datos[4],$datos[5],$datos[6]);
-                    $nuevoEmpleado->SetPathFoto($datos[7]);
-                    $this->AgregarEmpleado($nuevoEmpleado);
+                    $cadena=fgets($archivo);
+                    $datos=explode(' - ',$cadena);
+
+                    if(count($datos)>1)
+                    {
+                        $nuevoEmpleado=new Empleado($datos[1],$datos[0],$datos[2],$datos[3],$datos[4],$datos[5],$datos[6]);
+                        $nuevoEmpleado->SetPathFoto($datos[7]);
+                        $this->AgregarEmpleado($nuevoEmpleado);
+                    }
                 }
+                fclose($archivo);
             }
-            fclose($archivo);
         }
+        
     }
 
 }

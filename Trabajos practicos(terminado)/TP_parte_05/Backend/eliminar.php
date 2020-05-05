@@ -49,7 +49,7 @@ if($archivo)
     }
 }
 
-echo '<br/><a href=".\mostrar.php">Lista</a> ' . '<br/><a href="..\Frontend\index.html">Altas</a>';;
+echo '<br/><a href=".\mostrar.php">Lista</a> ' . '<br/><a href="..\Frontend\index.php">Altas</a>';;
 
 
 

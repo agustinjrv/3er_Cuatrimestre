@@ -13,12 +13,11 @@ if($archivo)
         $cadena=fgets($archivo);
         $datos=explode(' - ',$cadena);
 
-       
         if(count($datos)>2)
         {
             $dni=$datos[2];
             $apellido=$datos[0];
-            if($_POST["txtDni"]==$dni && $_POST["txtApellido"]==$apellido)
+            if($_POST["txtDni"]==$dni && (strcasecmp($_POST["txtApellido"],$apellido)==0))
             {
                 $encontro=true;
                 session_start();

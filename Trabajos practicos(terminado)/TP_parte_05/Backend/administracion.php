@@ -5,7 +5,8 @@ require_once "./fabrica.php";
 $path="./archivos/empleados.txt";
 $unaFabrica=new Fabrica("Alfajores",7);
 $unaFabrica->TraerDeArchivo($path);
-echo "antes de if";
+
+
 
 if(strlen($_POST["hdnModificar"])>3)
 {
