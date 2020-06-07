@@ -51,14 +51,14 @@ class Televisor implements IParte2,IParte3,IParte4
 
     public static function Traer()
     {
-        $listaUsuarios=array();
+        $listaTelevisores=array();
 
         try {
             $user="root";
             $pass="";
 
             $obj=new PDO("mysql:host=localhost;dbname=productos_bd;charset=utf8",$user,$pass);
-            //$this->obj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+           // $obj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (PDOException $e)
         {
@@ -67,14 +67,18 @@ class Televisor implements IParte2,IParte3,IParte4
             
         $consulta=$obj->prepare("SELECT * FROM televisores");
 
+        $consulta->execute();
+
         while($t=$consulta->fetch(PDO::FETCH_LAZY))
         {
-            $unUsuario=new Usuario($t->tipo,$t->precio,$t->pais,$t->foto);
-            array_push($listaUsuarios,$unUsuario);
+            $unTelevisor=new Televisor($t->tipo,$t->precio,$t->pais,$t->foto);
            
+            array_push($listaTelevisores,$unTelevisor);
+            
         }
+        
 
-        return $listaUsuarios;
+        return $listaTelevisores;
     }
 
     public function CalcularIVA()
@@ -159,7 +163,7 @@ class Televisor implements IParte2,IParte3,IParte4
 //no se como obtener id
     function GuardarEnArchivo()
     {
-        $nombreArchivo="../archivos/televisores/televisores_borrados.txt";
+        $nombreArchivo="./archivos/televisores/televisores_borrados.txt";
 
         $archivo = fopen($nombreArchivo,"a");
         if(is_file($archivo))

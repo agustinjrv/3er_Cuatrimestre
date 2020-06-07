@@ -1,16 +1,18 @@
 <?php
 require "./clases/televisor.php";
 
-$destino="./archivos/televisores/imagenes/";
+$destino="./imagenes/";
 $tipoArchivo=pathinfo($_FILES["Archivo"]["name"],PATHINFO_EXTENSION);
-$destino.=$_POST["tipo"] . "." . $_POST["paisOrigen"] . "." . date("Y-m-d-H:i:s") . "." .$tipoArchivo;
-
+$destino.=$_POST["tipo"] . "." . $_POST["paisOrigen"] . "." . date("His") . "." .$tipoArchivo;
+//$destino.="hola" .".". $tipoArchivo;
 $nuevoTelevisor = new Televisor($_POST["tipo"],$_POST["precio"],$_POST["paisOrigen"],$destino);
+echo $destino;
 move_uploaded_file($_FILES["Archivo"]["tmp_name"], $destino);
 
 if($nuevoTelevisor->Agregar())
 {
     header("LOCATION: ./listado.php");
+    
 }
 else
 {

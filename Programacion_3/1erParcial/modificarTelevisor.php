@@ -2,9 +2,9 @@
 
 require "./clases/televisor.php";
 
-$destino="./archivos/televisores/imagenes/";
+$destino="./archivos/televisores/imagenes/televisoresModificados/";
 $tipoArchivo=pathinfo($_FILES["Archivo"]["name"],PATHINFO_EXTENSION);
-$destino.=$_POST["tipo"] . "." . $_POST["paisOrigen"] . "."."modificado" .".". date("Y-m-d-H:i:s") . "." .$tipoArchivo;
+$destino.=$_POST["tipo"] . "." . $_POST["paisOrigen"] . "."."modificado" .".". date("His") . "." .$tipoArchivo;
 
 $unTelevisor = new Televisor("LCD",30000,"Argentina",$_POST["unPath"]);
 $televisorModificado= new Televisor($_POST["tipo"],$_POST["precio"],$_POST["paisOrigen"],$destino);

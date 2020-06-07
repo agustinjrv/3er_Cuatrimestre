@@ -19,11 +19,11 @@
 
     public function GuardarEnArchivo()
     {
-        $nombreArchivo="../archivos/usuarios.txt";
+        $nombreArchivo="./archivos/usuarios.txt";
         $retorno="No se a podido agregar el Usuario";
 
         $archivo = fopen($nombreArchivo,"a");
-        if(is_file($archivo))
+        if($archivo)
         {
             fwrite($archivo,$this->ToString()."\r\n");
             fclose($archivo);
@@ -36,14 +36,13 @@
 
     public static function TraerTodos()
     {
-        $nombreArchivo="../archivos/usuarios.txt";
+        $nombreArchivo="./archivos/usuarios.txt";
+        $listaUsuarios=array();
         if(is_file($nombreArchivo))
         {
             $archivo=fopen($nombreArchivo,"r");
             $cadena="";
-            $datos=array();
-            $unUsuario;
-            $listaUsuarios=array();
+            $datos=array();            
 
             if($archivo)
             {
@@ -68,11 +67,14 @@
 
     public static function VerificarExistencia($usuario)
     {
+        $listaUsuarios=array();
         $listaUsuarios=self::TraerTodos();
         $retorno=false;
+
         foreach ($listaUsuarios as $key => $u) {
             
-            if($usuario->email==$u->email && $usuario->clave==$u->clave)
+            
+            if($usuario->email==$u->email && $usuario->clave==trim($u->clave))
             {
                 $retorno=true;
             }

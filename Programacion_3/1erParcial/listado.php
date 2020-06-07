@@ -32,9 +32,15 @@ echo '
                      $unTelevisor->ToString() .
                "</td>".
 
-                "<td>".
-                    '<img src='.$unTelevisor->path. 'width="90" height="90">'.
+               "<td>".
+                      "IVA: ".  $unTelevisor->CalcularIVA().
                 "</td>".
+
+                "<td>".
+                    '<img src= '.$unTelevisor->path. ' width="90" height="90">'.
+                "</td>".
+
+
              "</tr>";
     }
    echo '

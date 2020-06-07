@@ -1,8 +1,12 @@
 <?php
-    require "./clases/televisores.php";
+    require "./clases/televisor.php";
     
     $listaTelevisores=Televisor::Traer();
-    $unTelevisor=new Televisor($_GET["tipo"],"",$_GET["paisOrigen"],"");
+    var_dump($_GET);
+    $_POST["accion"]="borrar";
+
+
+    $unTelevisor=new Televisor($_GET["tipo"],1588,$_GET["paisOrigen"],"5aa9de8af0f1c.jpeg");
     
     if($unTelevisor->Verificar($listaTelevisores))
     {
@@ -17,7 +21,8 @@
             if($unTelevisor->Eliminar())
             {
                 $unTelevisor->GuardarEnArchivo();
-                header("LOCATION: ./listado.php");
+                //header("LOCATION: ./listado.php");
+                echo "eliminado";
             }
             else
             {

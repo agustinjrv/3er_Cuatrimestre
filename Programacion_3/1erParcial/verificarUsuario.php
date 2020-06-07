@@ -5,8 +5,9 @@ $existe= Usuario::VerificarExistencia(new Usuario($_POST["email"],$_POST["clave"
 
 if($existe)
 {
+    
     setcookie($_POST["email"],date("Y-m-d-H:i:s"));
-    header("LOCATION: ./listadoUsuario.php");
+    header("LOCATION: ./listadoUsuarios.php");
 }
 else
 {

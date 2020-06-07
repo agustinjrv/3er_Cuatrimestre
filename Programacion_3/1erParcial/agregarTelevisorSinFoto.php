@@ -1,14 +1,16 @@
 <?php
-require "./clases/televisores.php";
+require "./clases/televisor.php";
 
 $unTelevisor=new Televisor($_POST["tipo"],$_POST["precio"],$_POST["paisOrigen"]);
 $listaTelevisores=Televisor::Traer();
+
+
 
 if($unTelevisor->Verificar($listaTelevisores))
 {
     if($unTelevisor->Agregar())
     {
-        echo "Televisore agregado";
+        echo "Televisor agregado";
     }
     else
     {
