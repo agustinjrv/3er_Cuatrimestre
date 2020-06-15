@@ -6,9 +6,9 @@ interface IParte2
     static function Traer();
     function CalcularIVA();
     function Verificar($lista);
+
+
 }
-
-
 
 
 

@@ -10,7 +10,7 @@ $unaFabrica = new Fabrica("Alfajores",7);
 $unaFabrica->TraerDatosBD();
 $listaEmpleados=$unaFabrica->GetEmpleados();
 
-echo '
+$retorno ='
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -34,23 +34,23 @@ echo '
 
     foreach($listaEmpleados as $unEmpleado)
     {
-        echo "<tr>".
+        $retorno.= "<tr>".
                 "<td>".
                      $unEmpleado->ToString() .
                "</td>".
 
                 "<td>".
-                    '<img src='.$unEmpleado->GetPathFoto(). 'width="90" height="90">'.
+                    '<img src='.' ../Backend/'.$unEmpleado->GetPathFoto(). 'width="90" height="90">'.
                 "</td>".
               "<td>".
-                 '<a href="./eliminar.php?legajo=' . $unEmpleado->GetLegajo(). ' ">Eliminar</a>' . 
+                 '<a href="./Backend/eliminar.php?legajo=' . $unEmpleado->GetLegajo(). ' ">Eliminar</a>' . 
               "</td>".
               "<td>".
                   '<input type="button" value="Modificar" id="btnModificar" name="btnModificar" onclick= AdministrarModificar('.$unEmpleado->GetDni().")>".
               "</td>".
              "</tr>";
     }
-   echo '
+   $retorno.= '
 
    <tr>
         <td><hr></td>    
@@ -60,12 +60,14 @@ echo '
 
      <a href="./cerrarSesion.php">Cerrar sesion</a>
 
-     <form id="formDni" method="post" action="../index.php">
+     <form id="formDni" method="post" action="./index.php">
             <input type="hidden" name="dni" id="hiddenDni">
         </form>
 
 
     </body>
     </html>';
+
+    echo $retorno;
 
 ?>

@@ -1,7 +1,8 @@
 <?php
-require "./clases/usuario.php";
+require "clases/Usuario.php";
 
 $path="./archivos/usuarios.txt";
+$listaUsuarios=array();
 $listaUsuarios=Usuario::TraerTodos();
 
 echo '
@@ -10,7 +11,7 @@ echo '
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>HTML 5 – Listado de Usuarios</title>    
+        <title>HTML 5 – Listado de Usuarios</title>
     </head>
     <body>
     <h2>Listado de Usuarios</h2>
@@ -40,10 +41,7 @@ echo '
     </tr> 
 
     </table>
-
     </body>
     </html>';
-
-
 
 ?>

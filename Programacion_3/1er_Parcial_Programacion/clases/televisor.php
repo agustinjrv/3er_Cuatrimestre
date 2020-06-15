@@ -1,30 +1,31 @@
 <?php
-require "./clases/iParte2.php";
-require "./clases/iParte3.php";
-require "./clases/iParte4.php";
+require_once "./clases/iParte2.php";
+require_once "./clases/iParte3.php";
+require_once "./clases/iParte4.php";
 
 
 class Televisor implements IParte2,IParte3,IParte4
 {
-    public $tipo;
-    public $precio;
-    public $paisOrigen;
-    public $path;
+    public  $tipo;
+    public  $precio;
+    public  $paisOrigen;
+    public  $path;
 
     public function __construct($_tipo="",$_precio="",$_paisOrigen="",$_path="")
-    {
+    {    
         $this->tipo=$_tipo;
         $this->precio=$_precio;
         $this->paisOrigen=$_paisOrigen;
         $this->path=$_path;
-    }
+    }    
+
 
     public function ToString()
     {
-        return $this->tipo ." - " . $this->precio ." - ". $this->paisOrigen . " - " . $this->path;
+        return $this->tipo . " - " . $this->precio . " - " . $this->paisOrigen . " - " . $this->path;
     }
 
-    public function Agregar()
+    function Agregar()
     {
         try {
             $user="root";
@@ -37,81 +38,81 @@ class Televisor implements IParte2,IParte3,IParte4
         {
             echo "Error: " . $e->getMessage();
         }
-            
-        $consulta=$obj->prepare("INSERT INTO televisores( `tipo`, `precio`, `pais`, `foto`) 
-        VALUES(:tipo, :precio, :pais, :foto)");
 
+        
+        $consulta=$obj->prepare("INSERT INTO televisores ( `tipo`, `precio`, `pais`, `foto`)
+        VALUES(:tipo, :precio, :pais, :foto)");
+            
         $consulta->bindValue(':tipo',$this->tipo);
         $consulta->bindValue(':precio',$this->precio);
         $consulta->bindValue(':pais',$this->paisOrigen);
         $consulta->bindValue(':foto',$this->path);
-                
-        return $consulta->execute();    
+       
+       return $consulta->execute();
     }
 
-    public static function Traer()
+    static function Traer()
     {
-        $listaTelevisores=array();
+        try {
+            $user="root";
+            $pass="";
 
+            $obj=new PDO("mysql:host=localhost;dbname=productos_bd;charset=utf8",$user,$pass);
+            //$this->obj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch (PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+
+        
+        $consulta=$obj->prepare("SELECT * FROM televisores");
+        $consulta->execute();
+        $listaTelevisores=array();
+     
+        while($obj=$consulta->fetch(PDO::FETCH_LAZY))
+        {
+            $unTelevisor=new Televisor($obj->tipo,$obj->precio,$obj->pais,$obj->foto);
+            array_push($listaTelevisores,$unTelevisor);
+           
+        }
+
+
+        return $listaTelevisores;
+    }
+
+    function CalcularIVA()
+    {
+        return ($this->precio * 0.21) + $this->precio;
+    }   
+
+    function Verificar($listaTelevisores)
+    {
+        $retorno=true;
+
+        foreach ($listaTelevisores as $key => $t) {
+            
+            if($t->tipo ==$this->tipo && $t->paisOrigen == $this->paisOrigen)
+            {
+                $retorno=false;
+                break;
+            }
+
+
+        }
+
+        return $retorno;
+
+    }
+
+    function Modificar($unTelevisor)
+    {
         try {
             $user="root";
             $pass="";
 
             $obj=new PDO("mysql:host=localhost;dbname=productos_bd;charset=utf8",$user,$pass);
            // $obj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        catch (PDOException $e)
-        {
-            echo "Error: " . $e->getMessage();
-        }
-            
-        $consulta=$obj->prepare("SELECT * FROM televisores");
-
-        $consulta->execute();
-
-        while($t=$consulta->fetch(PDO::FETCH_LAZY))
-        {
-            $unTelevisor=new Televisor($t->tipo,$t->precio,$t->pais,$t->foto);
-           
-            array_push($listaTelevisores,$unTelevisor);
-            
-        }
-        
-
-        return $listaTelevisores;
-    }
-
-    public function CalcularIVA()
-    {
-        return ($this->precio * 0.21) + $this->precio;
-    }
-
-    public function Verificar($listaTelevisores)
-    {
-        $retorno=true;
-
-        foreach ($listaTelevisores as $key => $t) {
-            
-            if($this->tipo == $t->tipo && $this->paisOrigen == $t->paisOrigen)
-            {
-                $retorno=false;
-                break;
-            }
-        }
-
-        return $retorno;
-
-        
-    }
-
-    public function Modificar($unTelevisor)
-    {
-        try {
-            $user="root";
-            $pass="";
-
-            $obj=new PDO("mysql:host=localhost;dbname=productos_bd;charset=utf8",$user,$pass);
-            //$this->obj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (PDOException $e)
         {
@@ -131,27 +132,24 @@ class Televisor implements IParte2,IParte3,IParte4
      
 
         return $consulta->execute();
-
-
     }
 
     function Eliminar()
     {
-        try 
-        {
+        try {
             $user="root";
             $pass="";
 
             $obj=new PDO("mysql:host=localhost;dbname=productos_bd;charset=utf8",$user,$pass);
-            //$this->obj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+           // $obj->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (PDOException $e)
         {
             echo "Error: " . $e->getMessage();
         }
-        
-        $consulta = $obj->prepare("DELETE FROM televisores WHERE `tipo` = :tipo AND `precio` = :precio 
-        AND `pais` = :pais AND `foto`=:foto");
+
+        $consulta=$obj->prepare("DELETE FROM televisores WHERE `tipo` = :tipo AND
+        `precio` = :precio AND `pais` = :pais AND`foto`=:foto");
 
         $consulta->bindValue(':tipo', $this->tipo);
         $consulta->bindValue(':precio', $this->precio);
@@ -160,64 +158,101 @@ class Televisor implements IParte2,IParte3,IParte4
 
         return $consulta->execute();
     }
-//no se como obtener id
+
     function GuardarEnArchivo()
     {
-        $nombreArchivo="./archivos/televisores/televisores_borrados.txt";
+
+        $nombreArchivo="./archivos/televisores_borrados.txt";
 
         $archivo = fopen($nombreArchivo,"a");
-        if(is_file($archivo))
+        if($archivo)
         {
-                        
-            $destino=$this->path;
-            $tipoArchivo=pathinfo($destino,PATHINFO_EXTENSION);
-            $destino="./televisores/televisoresBorrados".$_POST["tipo"] . "." . $_POST["paisOrigen"] . "."."borrado" .".". date("Y-m-d-H:i:s") . "." .$tipoArchivo;
-            move_uploaded_file($_FILES["Archivo"]["tmp_name"], $destino);
+            $tipoArchivo=pathinfo($this->path,PATHINFO_EXTENSION);
+            $destino="./televisoresBorrados/" .$this->tipo . "." .$this->paisOrigen .".borrado.". date("His") . $tipoArchivo;
+            move_uploaded_file($this->path, $destino);
+            $this->path=$destino;
             fwrite($archivo,$this->ToString()."\r\n");
-            fclose($archivo);            
-        }
-        
-
-        return $retorno;
+            fclose($archivo);        
+        }    
     }
-    
-    public static function MostrarBorrados()
+
+    static function MostrarBorrados()
     {
-                
-        $nombreArchivo="../archivos/televisores/televisores_borrados.txt";
-        $listaTelevisores=array();
-
-
+        $listaTelevisoresBorrados=array();
+        $nombreArchivo="./archivos/televisores_borrados.txt";
+    
         if(is_file($nombreArchivo))
         {
             $archivo=fopen($nombreArchivo,"r");
             $cadena="";
             $datos=array();
             $unTelevisor;
-
+    
             if($archivo)
             {
                 while(!feof($archivo))
                 {
                     $cadena=fgets($archivo);
                     $datos=explode(' - ',$cadena);
-
+    
                     if(count($datos)>1)
                     {
                         $unTelevisor=new Televisor($datos[0],$datos[1],$datos[2],$datos[3]);
-                        array_push($listaTelevisores,$unTelevisor);
+                        array_push($listaTelevisoresBorrados,$unTelevisor);
                     }
                 }
                 fclose($archivo);
             }
-
-            
         }
-        return $listaTelevisores;
-        
+
+        echo '
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HTML 5 – Listado de Televisores borrados</title>
+    </head>
+    <body>
+    <h2>Listado de Televisores Borrados</h2>
+       
+    <table alingn="center">
+
+    <tr>
+        <td>Info</td>
+    </tr>
+
+    <tr>
+        <td><hr></td>
+    </tr>';
+
+    foreach($listaTelevisoresBorrados as $unTelevisor)
+    {
+        echo "<tr>".
+                "<td>".
+                     $unTelevisor->ToString() .
+               "</td>".
+
+               "<td>".
+                   " IVA: " .$unTelevisor->CalcularIVA().
+            "</td>".
+               "<td>".
+               '    <img src= '.$unTelevisor->path. ' width="90" height="90">'.
+                "</td>".
+
+             "</tr>";
     }
+    echo '
 
+    <tr>
+            <td><hr></td>    
+        </tr> 
 
+        </table>
+        </body>
+        </html>';
+                
+    }
 
 }
 

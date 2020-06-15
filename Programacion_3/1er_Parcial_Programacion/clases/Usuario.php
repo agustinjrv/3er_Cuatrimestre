@@ -1,48 +1,54 @@
-<?php
+<?php 
 
-
- class Usuario
+class Usuario
 {
     private $email;
     private $clave;
-
-    public function __construct($_email,$_clave)
+    
+    
+    public function __construct( $_email, $_clave)
     {
         $this->email=$_email;
         $this->clave=$_clave;
+        
+        
     }
 
+    
     public function ToString()
     {
-        return $this->email . " - " . $this->clave;
+        return $this->email . " - " .  $this->clave;
     }
 
-    public function GuardarEnArchivo()
+    function GuardarEnArchivo()
     {
+
         $nombreArchivo="./archivos/usuarios.txt";
-        $retorno="No se a podido agregar el Usuario";
+        $retorno="No se a podido agregar al usuario";
 
         $archivo = fopen($nombreArchivo,"a");
         if($archivo)
         {
             fwrite($archivo,$this->ToString()."\r\n");
             fclose($archivo);
-            $retorno="Usuario agregado correctamente";
+            $retorno="Se a agregado al usuario en el archivo";
         }
         
-
         return $retorno;
     }
 
-    public static function TraerTodos()
+    static function TraerTodos()
     {
         $nombreArchivo="./archivos/usuarios.txt";
         $listaUsuarios=array();
+
+
         if(is_file($nombreArchivo))
         {
             $archivo=fopen($nombreArchivo,"r");
             $cadena="";
-            $datos=array();            
+            $datos=array();
+            $unUsuario;
 
             if($archivo)
             {
@@ -59,24 +65,22 @@
                 }
                 fclose($archivo);
             }
-
-            return $listaUsuarios;
         }
 
+        return $listaUsuarios;
     }
 
-    public static function VerificarExistencia($usuario)
+    static function VerificarExistencia($usuario)
     {
-        $listaUsuarios=array();
-        $listaUsuarios=self::TraerTodos();
+        $listaUsuarios=self::TraerTodos();       
         $retorno=false;
 
         foreach ($listaUsuarios as $key => $u) {
             
-            
-            if($usuario->email==$u->email && $usuario->clave==trim($u->clave))
+            if($u->email == $usuario->email && trim($u->clave) == trim($usuario->clave))
             {
                 $retorno=true;
+                break;
             }
         }
 
@@ -85,6 +89,5 @@
 
 
 
-}
 
-?>
+}

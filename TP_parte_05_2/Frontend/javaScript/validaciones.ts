@@ -1,16 +1,15 @@
 ///<reference path="../../node_modules/@types/jquery/index.d.ts" />
-/*
+
 $(document).ready(function(){
-	
-	MostrarGrilla();
-	
+    MostrarGrilla();    
 });
 
 
 function MostrarGrilla()
 {
-    let pagina : string = "./mostrar.php";
-
+    
+    let pagina : string = "../Backend/nuevaAdministracion.php";
+    
 	$.ajax({
         type: 'POST',
         url: pagina,
@@ -18,9 +17,105 @@ function MostrarGrilla()
         dataType: "html",
         async: true
     })
-	.done(function (grilla) {
+	.done(function (retorno) {
 
-		$("#divGrilla").html(grilla);
+		$("#divGrilla").html(retorno);
+	})
+	.fail(function (jqXHR, textStatus, errorThrown) {
+       alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
+    });   
+}
+
+function AgregarEmpleado():void {
+	
+    let pagina = "../Backend/nuevaAdministracion.php";
+
+    let queHago ="agregar";
+	let dni = $("#txtDni").val();
+    let apellido = $("#txtApellido").val();
+    let nombre =$("#txtNombre").val();
+    let sexo =$("#cboSexo").val();
+    let legajo =$("#txt_legajo").val();
+    let sueldo =$("#txt_sueldo").val();
+    let turno =$("#radTurno").val();
+    let archivo : any = $("#Archivo")[0];
+    //falta la foto
+	let nuevoEmpleado :any = {};
+    nuevoEmpleado.nombre=nombre;
+    nuevoEmpleado.apellido=apellido;
+    nuevoEmpleado.sexo=sexo;
+    nuevoEmpleado.legajo=legajo;
+    nuevoEmpleado.sueldo=sueldo;
+    nuevoEmpleado.dni=dni;
+    nuevoEmpleado.turno=turno;
+    let formData = new FormData();
+    
+	formData.append("Archivo",archivo.files[0]);
+	
+    $.ajax({
+        type: 'POST',
+        url: pagina,
+        dataType: "json",
+        data: {
+            nuevoEmpleado : nuevoEmpleado,
+            formData : formData,
+            queHago : queHago
+		},
+        async: true
+    })
+	.done(function (objJson) {
+		
+    	alert(objJson.Mensaje);
+    
+        if(objJson.exito)
+        {
+            $("#txtDni").val("");
+            $("#txtApellido").val("");
+            $("#txtNombre").val("");
+            $("#cboSexo").val("---");
+            $("#txt_legajo").val("");
+            $("#txt_sueldo").val("");
+            $("#radTurno").val("Mañana");	
+		    MostrarGrilla();
+        }
+        
+		
+	})
+	.fail(function (jqXHR, textStatus, errorThrown) {
+        alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
+    });    
+		
+}
+/*
+function SubirFoto(){
+	
+    let pagina = "../Backend/nuevaAdministracion.php";
+	let foto = $("#Archivo").val();
+	
+	if(foto === "")
+	{
+		return;
+	}
+
+	
+
+	$.ajax({
+        type: 'POST',
+        url: pagina,
+        dataType: "json",
+		cache: false,
+		contentType: false,
+		processData: false,
+        data: formData,
+        async: true
+    })
+	.done(function (objJson) {
+
+		if(!objJson.Exito){
+			alert(objJson.Mensaje);
+			return;
+		}
+		$("#divFoto").html(objJson.Html);
 	})
 	.fail(function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
