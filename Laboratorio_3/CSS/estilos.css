@@ -1,0 +1,28 @@
+.rojo{
+    color:red
+}
+h1{
+    background-color: blue;
+    color:red;
+}
+h2{
+    background-color: red;
+    color:blue;
+}
+h3{
+    background-color: brown;
+    color:yellow;
+}
+h4{
+    background-color: green;
+    color:yellow;
+}
+h5{
+    background-color: yellow;
+    color: green;
+}
+h6{
+    background-color: purple;
+    color:blue;
+
+}
