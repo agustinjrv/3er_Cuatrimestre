@@ -3,9 +3,9 @@
 
 
 function AgregarEmpleado(queHago):void {
-	
-    let pagina = "../Backend/Fabrica/";
-
+    
+    let type="POST";
+    let pagina = "../Backend/Fabrica/";  
     let nombre =($("#txtNombre").val()).toString();
     let apellido = $("#txtApellido").val().toString();
     let sexo =$("#cboSexo").val().toString();
@@ -15,17 +15,27 @@ function AgregarEmpleado(queHago):void {
     let turno =$("#radTurno").val().toString();
     let foto : any = $("#foto")[0];
     let pathFoto= $("#foto").val().toString();
- 
+    
+    let form = new FormData();
+    if(queHago=="Modificar")
+    {
+        type="PUT";
+        pathFoto="";
+    }
+    else
+    {
+        form.append("foto",foto.files[0]);
+
+    }
+    
     let unEmpleado= new Entidades.Empleado(nombre,apellido,sexo,legajo,sueldo,dni,turno,pathFoto);
     let cadenaJson = JSON.stringify(unEmpleado.ToJson());
-    let form = new FormData();
-    form.append("foto",foto.files[0]);
+    
     form.append("cadenaJson",cadenaJson);
-  //  form.append("queHago",queHago);
-   
+    
     $.ajax({
         url : pagina,
-        type : "POST",
+        type : type,
         dataType :"json",
         data: form,
         cache: false,
@@ -98,30 +108,30 @@ function MostrarLista()
 
 function EliminarEmpleado(legajo:number):void {
 	
-    let pagina = "../Backend/Administracion.php";
-
-    let queHago ="Eliminar";
-
+    
+    // let queHago ="Eliminar";
+    
+    let pagina = "../Backend/Fabrica/" + legajo.toString();
     let form = new FormData();
     form.append("legajo",legajo.toString());
-    form.append("queHago",queHago);
+    //form.append("queHago",queHago);
    
     $.ajax({
         url : pagina,
-        type : "post",
-        dataType :"text",
+        type : "DELETE",
+        dataType :"json",
         data: form,
         cache: false,
         contentType: false,
         processData: false,
         async:true
     }).done(function(respuesta){
-
         alert(respuesta);
         MostrarLista();
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
+        console.log(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 		
 }
@@ -285,4 +295,5 @@ function AdministrarModificar(dni:string)
     let form:HTMLFormElement = <HTMLFormElement>document.getElementById('formMostrar');
     form.submit();
 }
+
 

@@ -182,8 +182,7 @@ class Fabrica implements IArchivo,ISlimeable
     public static function EliminarDeBD($legajo)
     {
         $bd=AccesoDatos::DameUnObjetoAcceso();
-        $consulta=$bd->RetornarConsulta("DELETE FROM empleados WHERE Legajo = :legajo");
-        $consulta->bindValue(':legajo', $legajo);
+        $consulta=$bd->RetornarConsulta("DELETE FROM empleados WHERE Legajo = $legajo");
         return $consulta->execute();
     }
 
@@ -264,10 +263,7 @@ class Fabrica implements IArchivo,ISlimeable
         $retorno->estado=404;
         $array=$request->getParsedBody();      
         $aux=json_decode($array["cadenaJson"]);
-      
-        
-       
-
+//foto
         $archivos = $request->getUploadedFiles();
         $destino = "./fotos/";
         $nombreAnterior = $archivos['foto']->getClientFilename();
@@ -296,9 +292,13 @@ class Fabrica implements IArchivo,ISlimeable
         $retorno = new stdClass();
         $retorno->sePudo=false;
         $retorno->estado=404;
-        $json=json_decode($args);
+        $array=$request->getParsedBody();  
+        $aux=json_decode($array["cadenaJson"]);
 
-        if(Fabrica::ModificarBD($json))
+        $unEmpleado= new Empleado($aux->nombre,$aux->apellido,$aux->dni,$aux->sexo,$aux->legajo,$aux->sueldo,$aux->turno);
+      //  $unEmpleado->SetPathFoto($nuevoNombre);
+
+        if(Fabrica::ModificarBD($unEmpleado))
         {
             $retorno->sePudo=true;
             $retorno->estado=200;
@@ -312,9 +312,12 @@ class Fabrica implements IArchivo,ISlimeable
         
         $retorno = new stdClass();
         $retorno->sePudo=false;
-        $retorno->estado=404;
+        $retorno->estado=404;        
+        $array=$request->getParsedBody();  
+        //var_dump($array);
+        //var_dump($args);
 
-        if(Fabrica::EliminarDeBD($args))
+        if(Fabrica::EliminarDeBD($args["legajo"]))
         {
             $retorno->sePudo=true;
             $retorno->estado=200;
