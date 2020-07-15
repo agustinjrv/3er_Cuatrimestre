@@ -293,9 +293,9 @@ class Fabrica implements IArchivo,ISlimeable
         $retorno->sePudo=false;
         $retorno->estado=404;
         $array=$request->getParsedBody();  
-        $aux=json_decode($array["cadenaJson"]);
-
-        $unEmpleado= new Empleado($aux->nombre,$aux->apellido,$aux->dni,$aux->sexo,$aux->legajo,$aux->sueldo,$aux->turno);
+        $aux=$array["cadenaJson"];
+        
+        $unEmpleado= new Empleado($aux["nombre"],$aux["apellido"],$aux["dni"],$aux["sexo"],$aux["legajo"],$aux["sueldo"],$aux["turno"]);
       //  $unEmpleado->SetPathFoto($nuevoNombre);
 
         if(Fabrica::ModificarBD($unEmpleado))
@@ -313,8 +313,8 @@ class Fabrica implements IArchivo,ISlimeable
         $retorno = new stdClass();
         $retorno->sePudo=false;
         $retorno->estado=404;        
-        $array=$request->getParsedBody();  
-        //var_dump($array);
+        $array=$request->getParsedBody();
+        var_dump($array);
         //var_dump($args);
 
         if(Fabrica::EliminarDeBD($args["legajo"]))

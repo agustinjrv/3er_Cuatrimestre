@@ -25,22 +25,19 @@ function AgregarEmpleado(queHago):void {
     else
     {
         form.append("foto",foto.files[0]);
-
     }
     
     let unEmpleado= new Entidades.Empleado(nombre,apellido,sexo,legajo,sueldo,dni,turno,pathFoto);
-    let cadenaJson = JSON.stringify(unEmpleado.ToJson());
-    
-    form.append("cadenaJson",cadenaJson);
-    
+    let cadenaJson= {"cadenaJson": unEmpleado.ToJson()};    
+
     $.ajax({
         url : pagina,
         type : type,
         dataType :"json",
-        data: form,
+        data: cadenaJson,
         cache: false,
-        contentType: false,
-        processData: false,
+        contentType: "application/x-www-form-urlencoded",
+        //processData: false,
         async:true
     }).done(function(respuesta){
         console.log(respuesta);
@@ -58,10 +55,8 @@ function AgregarEmpleado(queHago):void {
         $("#btnAgregar").val("Agregar");
 
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
-        console.log(jqXHR.responseText);
-        console.log(textStatus);
-        console.log(errorThrown);
+       // alert(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
+        console.log(jqXHR.responseText + "\n" + textStatus + "\n" + errorThrown);
     });
 		
 }
@@ -81,8 +76,8 @@ function MostrarLista()
         async: true
     })
 	.done(function (retorno) {
-        let html='<h2>Listado de Empleados</h2>';
-        html+='<table alingn="center">';
+        let html='<h2 class="text-primary">Listado de Empleados</h2>';
+        html+='<table class="table table-dark table-hover">';
         html+='<tr><td>Info</td></tr>';
         html+='<tr><td><hr></td></tr>';
        
@@ -91,8 +86,8 @@ function MostrarLista()
             let json=JSON.stringify(unEmpleado.ToJson());
             html+= "<tr>"+"<td>"+ unEmpleado.ToString() +"</td>";
             html+="<td>"+'<img src=../Backend/fotos/'+unEmpleado.pathFoto + 'width="90" height="90">'+"</td>";
-            html+="<td>"+"<input type='button' value='Eliminar' onclick='EliminarEmpleado("+ unEmpleado.legajo +")'>"+'</td>';
-            html+="<td>"+"<input type='button' value='Modificar' onclick='ModificarEmpleado("+json+")'>"+'</td>';
+            html+="<td>"+"<input class='btn-danger' type='button' value='Eliminar' onclick='EliminarEmpleado("+ unEmpleado.legajo +")'>"+'</td>';
+            html+="<td>"+"<input class='btn-warning' type='button' value='Modificar' onclick='ModificarEmpleado("+json+")'>"+'</td>';
             html+="</tr>";
 
         });
