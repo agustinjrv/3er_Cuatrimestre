@@ -20,7 +20,7 @@ class MW
         $datos=json_decode($recibo["cadenaJson"]);
         $retorno=new stdClass();
         $retorno->mensaje="";
-        $retorno->status=403;
+        $retorno->status=409;
 
         $flagCorreo=isset($datos->correo);
         $flagClave=isset($datos->clave);
@@ -85,10 +85,7 @@ class MW
     public function VerficarEnBDCorreoYClave(Request $request,Response $response,$next)
     {
         $recibo=$request->getParsedBody();
-        $datos=json_decode($recibo["cadenaJson"]);
-        $retorno=new stdClass();
-        $retorno->mensaje="";
-        $retorno->status=403;       
+        $datos=json_decode($recibo["cadenaJson"]);    
 
         $retorno = new stdClass();
         
@@ -112,6 +109,7 @@ class MW
         else
         {
             $retorno->mensaje="El correo y la clave no existe en la base de datos";
+            $retorno->status=409;
             $response= $response->withJson($retorno,$retorno->status);
         }
 
@@ -240,6 +238,7 @@ class MW
         else
         {
             $retorno->propietario=false;
+            $retorno->status=409;
             $retorno->mensaje="No es propietario";
             $response=$response->withJson($retorno,$retorno->status);
         }
@@ -274,6 +273,7 @@ class MW
             {
                 $retorno->encargado=false;
                 $retorno->mensaje="no es encargado ,ni propietario";
+                $retorno->status=409;
                 $response=$response->withJson($retorno,$retorno->status);
             }
             
@@ -283,30 +283,78 @@ class MW
         return $response;
     }
 
+
     public function FiltroEncargado(Request $request,Response $response,$next)
     {
-        
         $response=$next($request,$response);
-
+        
         $token = $request->getHeader("jwt")[0];
         $retorno= new stdClass();
-        
+        $retorno->status=409;
+
         $json = JWT::decode($token,"admin",['HS256'])->data;
-        
+
         if(strtolower($json->perfil)=="encargado")
         {
             $retorno->encargado=true;
-        }
-        else
-        {   
-            $retorno->encargado=false;
-            $response=$response->withJson($retorno,200);
-        }
 
+            foreach ($retorno->listaElementos as $key => $value) {
+                
+                unset($value["id"]);
+            }
 
+            $response=$response->withJson($retorno,$retorno->status);
+        }
+        
         return $response;
     }
 
+    public function FiltroEmpleado(Request $request,Response $response,$next)
+    {
+        $response=$next($request,$response);
+
+         
+        $token = $request->getHeader("jwt")[0];
+        $retorno= new stdClass();        
+
+        $json = JWT::decode($token,"admin",['HS256'])->data;
+
+        if(strtolower($json->perfil)=="empleado")
+        {
+            $listaColores=array();
+            foreach ($retorno->listaElementos as $key => $value) {
+                
+                array_push($listaColores,$value->color);
+            }
+
+            $listaUnicos=array();
+
+            foreach ($listaColores as $key => $i) {
+                $yaEsta=false;
+                foreach ($listaUnicos as $key => $j) {
+                    
+                    if($i==$j)
+                    {
+                        $yaEsta=true;
+                    }
+                }
+
+                if(!$yaEsta)
+                {
+                    array_push($listaUnicos,$yaEsta);
+                }
+            }
+
+            $cantidadDeColores=count($listaUnicos);
+            $retorno->cantidadDeColores=$cantidadDeColores;
+            $response= $response->withJson($cantidadDeColores,200);
+        }
+
+        return $response;
+
+    }
+
+    
 
 
 }
