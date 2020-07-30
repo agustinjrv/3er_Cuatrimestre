@@ -2,7 +2,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use Firebase\JWT\JWT;
-
+require_once "./vendor/autoload.php";
 
 class Usuario
 {
@@ -180,11 +180,12 @@ class Usuario
 
     public static function GenerarPDF(Request $request,Response $response,$args)
     {
-        $recibo= $request->getParsedBody();
-        $tipoPdf=json_decode($recibo["tipo_pdf"]);
-        $token= $request->getHeader("token")[0];
-        $retorno = new stdClass();
         
+      //  $recibo= $request->getParsedBody();
+      //  $tipoPdf=json_decode($recibo["tipo_pdf"]);
+        //$token= $request->getHeader("token")[0];
+        //$retorno = new stdClass();
+        /*
         try {
             //DECODIFICO EL TOKEN RECIBIDO           
             
@@ -200,21 +201,22 @@ class Usuario
             $retorno->mensaje = "Token no valido!!! --> " . $e->getMessage();
             $retorno->status = 403;
             $retorno->exito=false;
-            }
+            }*/
+        
 
         
-        $listaUsuarios=$tipoPdf->usuarios;
-        $listaBarbijos=$tipoPdf->barbijos;
+        $listaUsuarios=self::TraerTodosBD();
+        $listaBarbijos=Barbijo::TraerTodosBD();
 
         $mpdf = new \Mpdf\Mpdf(['orientation' => 'P', 
                                 'pagenumPrefix' => 'Pág. ',
                                 'pagenumSuffix' => ' - ',
                                 'nbpgcomposer instPrefix' => ' de ']);
-        header('content-type:application/pdf');
+      //  header('content-type:application/pdf');
 
         $mpdf->SetHeader('Rivola Agustin||{PAGENO}{nbpg}');
         $mpdf->setFooter('|'.date("d-m-Y").'|');
-            
+         /*   
             if($usuario->perfil=="propietario")
             {
                 $contraseña=$usuario->apellido;
@@ -222,9 +224,9 @@ class Usuario
             else
             {
                 $contraseña=$usuario->correo;
-            }
+            }*/
         
-        $mpdf->SetProtection(array('copy','print','extract'),$contraseña ,"starwars");
+        $mpdf->SetProtection(array('copy','print','extract'),"1234" ,"starwars");
 
         $mpdf->WriteHTML('
             <!DOCTYPE html>
@@ -254,21 +256,21 @@ class Usuario
             "<th>Precio</th>".
             "<th>Perfil</th>".
             "<th>Foto</th>".
-            "</tr>");
+            "</tr> ");
 
             foreach($listaUsuarios as $unUsuario)
             {
                 $mpdf->WriteHTML( 
-                        "<tr>".
+                     "<tr>".
                         "<td>".$unUsuario->id . "</td>".
                         "<td>".$unUsuario->correo . "</td>".
                         "<td>".$unUsuario->nombre . "</td>".
                         "<td>".$unUsuario->apellido . "</td>".
                         "<td>".$unUsuario->perfil . "</td>".
-                        "<td>".'<img src=./fotos/'.$unUsuario->foto. ' width="90" height="90">'. "</td>".
+                        "<td>".'<img src="./fotos/'.$unUsuario->foto. '" width="90" height="90">'. "</td>".
                         "<td>".                            
                         "</td>".
-                    "</tr>");
+                    "</tr>" );
             }
 
             $mpdf->writeHtml("<br><br><br>");
@@ -284,7 +286,7 @@ class Usuario
             {
                 
                 $mpdf->writeHTML(
-                "<tr>".
+                 "<tr>".
                 "<td>".$unBarbijo->id . "</td>".
                 "<td>".$unBarbijo->color . "</td>".
                 "<td>".$unBarbijo->tipo . "</td>".
@@ -309,7 +311,7 @@ class Usuario
 
         $mpdf->Output("mi_pdf.pdf","I");
 
-        return $response;
+        return $response->withHeader('Content-Type', 'application/pdf');;
     }
 
 

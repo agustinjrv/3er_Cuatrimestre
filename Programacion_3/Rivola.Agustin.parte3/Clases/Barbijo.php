@@ -68,7 +68,7 @@ class Barbijo
 
     }
 
-    private static function TraerTodosBD()
+    public static function TraerTodosBD()
     {   
         $bd= AccesoDatos::DameUnObjetoAcceso();
         $consulta=$bd->RetornarConsulta("SELECT * FROM Barbijos");
